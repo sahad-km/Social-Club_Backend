@@ -65,7 +65,7 @@ const getPost = async (req,res) => {
         // console.log('commentsey...',comments);
         res.json({post:postandComment})
     } catch(err){
-        console.log(err)
+      res.json({err:"problem with id"})
     }
 }
 

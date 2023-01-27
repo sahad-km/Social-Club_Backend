@@ -18,7 +18,6 @@ const loginRoutes = require('./routes/user/login');
 const registerRoutes = require('./routes/user/register');
 const dashboardRoutes = require('./routes/user/dashboard');
 const postRoutes = require('./routes/post/post');
-const fileupload = require('./routes/image');
 const chatRoutes = require('./routes/chat/chat');
 
 //admin routes
@@ -58,7 +57,6 @@ app.use(express.urlencoded({extended:true}));
 app.use(loginRoutes);
 app.use('/register',registerRoutes);
 app.use('/dashboard',dashboardRoutes);
-app.use('/image',fileupload);
 app.use('/post',postRoutes);
 app.use('/chat',chatRoutes);
 

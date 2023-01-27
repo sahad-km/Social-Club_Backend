@@ -22,7 +22,14 @@ const allUsers = async (req, res) => {
 //User Profile
 const userDetails = async (req, res) => {
   const userId = req.params.id;
+  console.log("first ingott call vannoi")
   try {
+    const userExists = await user.findById(userId);
+    if (!userExists) {
+      res.json({err: 'User does not exist'});
+      return;
+    }
+    console.log("checking nadannu")
     const postCount = await posts.find({userId:userId}).count();
     const details = await user.aggregate([
         {
@@ -39,9 +46,12 @@ const userDetails = async (req, res) => {
             },
           }
     ]);
+    console.log(postCount,details);
     res.json({ details:{...details[0],postCount:postCount}});
   } catch (err) {
     console.log(err);
+    console.log("kooi")
+    res.status(404).json({error:'problem with id'});
   }
 };
 

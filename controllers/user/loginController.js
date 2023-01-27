@@ -39,7 +39,7 @@ const loginCheck = async (req,res)=> {
             res.json({ status: 'wrong'})
         }
     }else{
-        res.json({ status: 'fail'})
+        res.json({ status: 'no account'})
     }
 }
 
