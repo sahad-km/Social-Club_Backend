@@ -12,24 +12,21 @@ const allUsers = async (req, res) => {
       { $match: { _id: { $ne: id } } },
       { $project: { password: 0 } },
     ]);
-    console.log("gg we are leaving...",userDetails)
     res.json({ userDetails });
   } catch (err) {
-    console.log(err);
+    res.json({err})
   }
 };
 
 //User Profile
 const userDetails = async (req, res) => {
   const userId = req.params.id;
-  console.log("first ingott call vannoi")
   try {
     const userExists = await user.findById(userId);
     if (!userExists) {
       res.json({err: 'User does not exist'});
       return;
     }
-    console.log("checking nadannu")
     const postCount = await posts.find({userId:userId}).count();
     const details = await user.aggregate([
         {
@@ -46,11 +43,8 @@ const userDetails = async (req, res) => {
             },
           }
     ]);
-    console.log(postCount,details);
     res.json({ details:{...details[0],postCount:postCount}});
   } catch (err) {
-    console.log(err);
-    console.log("kooi")
     res.status(404).json({error:'problem with id'});
   }
 };
@@ -58,7 +52,6 @@ const userDetails = async (req, res) => {
 // Get following Details
 
 const followingDetails = async (req,res) => {
-  console.log("firstIdey....")
   const userId = req.params.id;
   try{
     const details = await user.aggregate([
@@ -76,10 +69,9 @@ const followingDetails = async (req,res) => {
           },
         }
   ]);
-  console.log(details)
   res.send({details})
   }catch(err){
-    console.log(err)
+    res.json({err})
   }
 }
 
@@ -88,7 +80,6 @@ const followingDetails = async (req,res) => {
 
 const followUser = async(req,res) => {
   try {
-      console.log('hi')
       const id = mongoose.Types.ObjectId(req.params.id);
       const myId = mongoose.Types.ObjectId(req.body.myId)
       const userToFollow = await user.findById(id)
@@ -102,7 +93,7 @@ const followUser = async(req,res) => {
           res.json({status:'unfollow',id:id})
       }
   } catch (err) {
-      console.log(err)
+      res.json({err})
   }
 }
 

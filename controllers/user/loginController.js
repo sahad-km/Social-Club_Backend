@@ -11,7 +11,6 @@ const loginCheck = async (req,res)=> {
     if(logger) {
         const validPassword = await bcrypt.compare(password, logger.password);
         if(validPassword) {
-            console.log(logger._id)
             const token = jwt.sign(
                 {
                     userId: logger._id,

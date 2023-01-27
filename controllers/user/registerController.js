@@ -22,10 +22,7 @@ const signUp = async (req,res) => {
 }
 
 const insertDetails = async (req,res) => {
-    console.log("Hoi hoi Hoi .....")
-    // const exist_user = await User.findOne({Id:req.body.userId});
     const {firstName,lastName,worksAs,livesIn,country,status,profileUrl,coverUrl} = req.body;
-    // console.log(req.body);
         const detailsToUpdate={$set:{
             firstName:firstName,
             lastName:lastName,
