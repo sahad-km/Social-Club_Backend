@@ -4,10 +4,8 @@ const commentModel = require("../../models/Posts/comments");
 const { default: mongoose } = require("mongoose");  
 
 const loadComments = async (req, res) => {
-    console.log("first",req.params.id)
   try {
     const postId = req.params.id;
-    console.log(postId)
     const comments = await commentModel.aggregate([
       {
         $match: {
@@ -23,7 +21,6 @@ const loadComments = async (req, res) => {
           },
       }
     ]);
-    console.log("comments",comments)
     res.json({comments:comments})
   } catch (err) {
     console.log(err)
@@ -31,8 +28,6 @@ const loadComments = async (req, res) => {
 };
 
 const addComments = async (req, res) => {
-  console.log(req.params.id)
-  console.log("first")
   try {
     const postId = req.params.id;
     const { userId, comment } = req.body;

@@ -47,7 +47,6 @@ const findChat = async (req, res) => {
 
 const addMessage = async (req, res) => {
   const { senderId, text, chatId, type } = req.body;
-  console.log(senderId, text, chatId);
   const message = new messageModel({
     chatId,
     senderId,
@@ -63,7 +62,6 @@ const addMessage = async (req, res) => {
 };
 
 const getMessage = async (req, res) => {
-  console.log(req.params.chatId);
   const { chatId } = req.params;
   try {
     const result = await messageModel.find({ chatId });

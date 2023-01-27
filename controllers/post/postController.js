@@ -7,13 +7,11 @@ const { default: mongoose } = require("mongoose");
 
 //Get all post
 const allPosts = async (req,res) => {
-  console.log("hi da ... monuse...")
   const id = req.params.id;
   try{
     const details = await posts.aggregate([
       { $match: { userId: { $ne: id } } },
     ]);
-    console.log("CHOSHOUA",details);
     res.json({details:details})
   }catch(err){
     console.log(err)
@@ -23,10 +21,8 @@ const allPosts = async (req,res) => {
 //Upload Image as Post
 const uploadImg = async (req, res) => {
   try {
-    console.log(req.body);
     const { id } = req.params;
     const { url, description,type } = req.body;
-    console.log("chu chi chu chi",type)
     const post = new posts({
       userId: id,
       image: url,
@@ -61,8 +57,6 @@ const getPost = async (req,res) => {
                   },
                 },
               ]);
-        console.log("postey",postandComment)
-        // console.log('commentsey...',comments);
         res.json({post:postandComment})
     } catch(err){
       res.json({err:"problem with id"})
@@ -73,7 +67,6 @@ const getPost = async (req,res) => {
 //Update the  Posts
 
 const updatePosts = async (req, res) => {
-  console.log("firstEditDA")
   const postId = req.params.id;
   const { caption } = req.body;
   try {

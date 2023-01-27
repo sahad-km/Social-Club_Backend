@@ -11,17 +11,15 @@ const methodOverride = require('method-override');
 app.use(express.json());
 app.use(cors());
 
-const dbConnect = 'mongodb://127.0.0.1:27017/SocialClub';
+const dbConnect = process.env.MONGO_DB_URL;
 mongoose.connect(dbConnect);
+
 //user routes
 const loginRoutes = require('./routes/user/login');
 const registerRoutes = require('./routes/user/register');
 const dashboardRoutes = require('./routes/user/dashboard');
 const postRoutes = require('./routes/post/post');
 const chatRoutes = require('./routes/chat/chat');
-
-//admin routes
-const adminDashboard = require('./routes/admin/userDetails');
 
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -60,11 +58,5 @@ app.use('/dashboard',dashboardRoutes);
 app.use('/post',postRoutes);
 app.use('/chat',chatRoutes);
 
-//admin files
-app.use('/admin',adminDashboard);
 
-// app.use((req,res)=>{
-//     res.redirect('/');
-// });
-
-app.listen(8000,()=>console.log('server listening on port 8000...'));
+app.listen(process.env.PORT,()=>console.log('server listening on port 8000...'));

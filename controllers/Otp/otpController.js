@@ -56,19 +56,14 @@ const sendOTPVerificationEmail = async(req,res) => {
 const otpVerify = async (req,res)=> {
     const email = req.body.email;
     const otp = req.body.otp.trim();
-    console.log("hi man0...")
     const user = await otpVerification.findOne({ email });
     if (user) {
-        console.log("hi man1...",user.otp)
         const validOtp = await bcrypt.compare(otp, user.otp);
-        console.log(typeof(otp),typeof(user.otp))
         if (validOtp) {
-            console.log("hi man2...")
             await otpVerification.deleteMany({email})
             res.json({status:"success"});
         }
         else {
-            console.log("hi man3...")
             res.json({ status: 'fail'});
         }
     }
@@ -79,11 +74,9 @@ const otpVerify = async (req,res)=> {
 
 
 const forgotPasswordOTP = async(req,res) => {
-    console.log(req.body)
     const email = req.body.email;
     const exist_email = await User.findOne({email:email});
     if(exist_email) {
-        console.log("456")
         try{
             const otp = `${Math.floor(1000 + Math.random() * 9000)}`
             const mailOptions = {
@@ -116,15 +109,12 @@ const forgotPasswordOTP = async(req,res) => {
 }
 
 const forgotOTPVerify = async (req,res)=> {
-    console.log(req.body)
     const email = req.body.email;
     const otp = req.body.otp.trim();
     const user = await otpVerification.findOne({ email });
     if (user) {
-        console.log("inside out",user.otp,otp)
         const validOtp = bcrypt.compare(otp, user.otp);
         if (validOtp) {
-            console.log("inside out 2")
             await otpVerification.deleteMany({email})
             res.json({status:"success"});
         }
