@@ -11,7 +11,7 @@ router.get('/:id',validateUserToken,postController.getPost);
 router.put('/update_post/:id',validateUserToken,postController.updatePosts);
 router.delete('/delete/:id',validateUserToken,postController.deletePost);
 router.post('/like_unlike/:id',validateUserToken,postController.likeOrDislike);
-router.get('/timeline_posts/:id',postController.timeLinePost);
+router.get('/timeline_posts/:id',validateUserToken,postController.timeLinePost);
 router.post('/add_comment/:id',validateUserToken,commentController.addComments);
 router.get('/comments/:id',validateUserToken,commentController.loadComments);
 router.post('/scheduled_post/:id',validateUserToken,postController.addScheduledPost);

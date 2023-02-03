@@ -139,14 +139,12 @@ const timeLinePost = async (req, res) => {
         },
       },
     ]);
-    
-    res.json(
-      userPost.concat(...followingPosts[0].followingPosts).sort((a, b) => {
-        return b.createdAt - a.createdAt;
-      })
-    );
-  } catch (err) {}
+    res.json(userPost.concat(...followingPosts[0].followingPosts).sort((a, b) => b.createdAt - a.createdAt));
+  } catch (err) {
+    console.log(err)
+  }
 };
+
 
 // Setting post into scheduled collection
 
